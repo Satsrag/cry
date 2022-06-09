@@ -12,7 +12,7 @@ import 'package:cry/cry.dart';
 import 'package:cry/model/cry_properties.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class CryUtils {
   static OverlayEntry? loadingOE;
@@ -24,15 +24,16 @@ class CryUtils {
         content: Text(message),
       ));
     } else {
-      Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
+      toast(message);
+      // Fluttertoast.showToast(
+      //   msg: message,
+      //   toastLength: Toast.LENGTH_SHORT,
+      //   gravity: ToastGravity.CENTER,
+      //   timeInSecForIosWeb: 1,
+      //   backgroundColor: Colors.red,
+      //   textColor: Colors.white,
+      //   fontSize: 16.0,
+      // );
     }
   }
 

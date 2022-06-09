@@ -1,14 +1,9 @@
-import 'package:camera/camera.dart';
 import 'package:cry/cry_logger.dart';
 import 'package:cry/model/api_properties.dart';
 import 'package:cry/model/cry_properties.dart';
 import 'package:cry/model/logger_properties.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:yaml/yaml.dart';
-
-import 'face_service_import.dart';
 
 /// @author: cairuoyu
 /// @homepage: http://cairuoyu.com
@@ -34,20 +29,10 @@ class ApplicationContext {
   late YamlMap yamlMap;
   late Map variableMap;
   late String privacy;
-  List<CameraDescription> cameras = [];
-
-  FaceDetector faceDetector = GoogleMlKit.vision.faceDetector(FaceDetectorOptions(
-    enableContours: true,
-    enableClassification: true,
-  ));
 
   init() async {
     await this.loadApplication();
     this.loadPrivacy();
-    FaceService().loadModel();
-    if (!kIsWeb) {
-      cameras = await availableCameras();
-    }
   }
 
   MapEntry convertVariable(key, value) {

@@ -6,6 +6,7 @@ import 'package:cry/routes/cry_route_Information_parser.dart';
 import 'package:cry/routes/cry_router_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import 'demo/demo_button.dart';
 import 'demo/demo_form.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
       '/button': DemoButton(),
       '/form': DemoForm(),
     };
-    return MaterialApp.router(
+    return OverlaySupport.global(
+        child: MaterialApp.router(
       key: UniqueKey(),
       title: 'Cry Demo',
       locale: Locale('en'),
@@ -44,6 +46,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       routerDelegate: CryRouterDelegate(pageMap: pageMap),
       routeInformationParser: CryRouteInformationParser(),
-    );
+    ));
   }
 }

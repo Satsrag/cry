@@ -19,3 +19,6 @@ generated_plugin_registrant.dart
 
 ignore_*
 debug.log
+
+.DS_Store
+*/.DS_Store
