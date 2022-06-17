@@ -20,13 +20,15 @@ class CrySelectCustomWidget<T> extends FormField<T> {
     FormFieldSetter<T>? onSaved,
     Function? getValueLabel,
     Function? getValue,
-    required Widget popWidget,
+    Widget? popWidget,
+    GestureTapCallback? onTap,
   }) : super(
           key: key,
           initialValue: initialValue,
           onSaved: onSaved,
           builder: (FormFieldState<T> field) {
-            final _CrySelectCustomWidgetState state = field as _CrySelectCustomWidgetState;
+            final _CrySelectCustomWidgetState state =
+                field as _CrySelectCustomWidgetState;
             return Container(
               padding: EdgeInsets.all(padding ?? 20.0),
               width: width ?? double.infinity,
@@ -34,18 +36,25 @@ class CrySelectCustomWidget<T> extends FormField<T> {
                 readOnly: true,
                 controller: state._effectiveController,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => popWidget),
-                  ).then((res) {
-                    if (res == null) {
-                      return;
-                    }
-                    String valueLabel = getValueLabel == null ? res.toString() : getValueLabel(res);
-                    initialValue = getValue == null ? res.toString() : getValue(res);
-                    field.didChange(initialValue);
-                    state.didChangeValueLabel(valueLabel);
-                  });
+                  if (onTap != null) {
+                    onTap.call();
+                  } else if (popWidget != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => popWidget),
+                    ).then((res) {
+                      if (res == null) {
+                        return;
+                      }
+                      String valueLabel = getValueLabel == null
+                          ? res.toString()
+                          : getValueLabel(res);
+                      initialValue =
+                          getValue == null ? res.toString() : getValue(res);
+                      field.didChange(initialValue);
+                      state.didChangeValueLabel(valueLabel);
+                    });
+                  }
                 },
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -67,10 +76,12 @@ class CrySelectCustomWidget<T> extends FormField<T> {
 class _CrySelectCustomWidgetState<T> extends FormFieldState<T> {
   TextEditingController? _controller;
 
-  TextEditingController? get _effectiveController => widget.controller ?? _controller;
+  TextEditingController? get _effectiveController =>
+      widget.controller ?? _controller;
 
   @override
-  CrySelectCustomWidget<T> get widget => (super.widget as CrySelectCustomWidget) as CrySelectCustomWidget<T>;
+  CrySelectCustomWidget<T> get widget =>
+      (super.widget as CrySelectCustomWidget) as CrySelectCustomWidget<T>;
 
   @override
   void initState() {

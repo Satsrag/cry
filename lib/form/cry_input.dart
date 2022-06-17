@@ -25,6 +25,7 @@ class CryInput extends CryFormField {
     bool? enable,
     bool required = false,
     List<TextInputFormatter>? inputFormatters,
+    GestureTapCallback? onTap,
   }) : super(
           key: key,
           width: width,
@@ -58,6 +59,7 @@ class CryInput extends CryFormField {
                 }
                 return null;
               },
+              onTap: onTap,
             );
           },
         );
