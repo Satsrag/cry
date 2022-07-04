@@ -1,7 +1,5 @@
 
 import 'package:cry/common/keep_alive_wrapper.dart';
-import 'package:example/demo/demo_message.dart';
-import 'package:example/demo/demo_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'demo/demo_button.dart';
@@ -42,8 +40,6 @@ class _HomeState extends State<Home> {
       DemoTreeTable(),
       DemoListView(),
       DemoFile(),
-      DemoRoutes(),
-      DemoMessage(),
     ];
     var result = DefaultTabController(
       // initialIndex: 2,
