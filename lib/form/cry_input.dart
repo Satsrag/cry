@@ -13,12 +13,14 @@ import 'cry_form_field.dart';
 class CryInput extends CryFormField {
   CryInput({
     Key? key,
+    FocusNode? focusNode,
     double? width,
     double? padding,
     double? contentPadding,
     int? maxLines,
     String? label,
     String? value,
+    TextEditingController? controller,
     ValueChanged? onChange,
     FormFieldSetter<String>? onSaved,
     FormFieldValidator<String>? validator,
@@ -26,19 +28,23 @@ class CryInput extends CryFormField {
     bool required = false,
     List<TextInputFormatter>? inputFormatters,
     GestureTapCallback? onTap,
+    TapRegionCallback? onTapOutside,
   }) : super(
           key: key,
           width: width,
           padding: padding,
           builder: (CryFormFieldState state) {
             return TextFormField(
+              focusNode: focusNode,
               maxLines: maxLines,
               decoration: InputDecoration(
                 enabled: enable ?? true,
                 labelText: label,
-                contentPadding: EdgeInsets.symmetric(horizontal: contentPadding ?? 10),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: contentPadding ?? 10),
               ),
-              controller: TextEditingController(text: value),
+              controller: (controller?..text = value ?? '') ??
+                  TextEditingController(text: value),
               inputFormatters: inputFormatters ?? [],
               onChanged: (v) {
                 if (onChange != null) {
@@ -60,6 +66,7 @@ class CryInput extends CryFormField {
                 return null;
               },
               onTap: onTap,
+              onTapOutside: onTapOutside,
             );
           },
         );
